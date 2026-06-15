@@ -59,13 +59,13 @@
 
     <script type="text/javascript">
       const students = [
-  "Abdulaziz Mohamed A. Makhlooq",
+   "Aziz Mohamed A. Makhlooq",
   "Abdullah Mohammed suleman A.butt",
   "Abeer Ahmed Abdulrahman",
-  "Alghaleya Almahmeed",
-  "Ali Arif Rajab",
+  // "Alghaleya Almahmeed",
+  // "Ali Arif Rajab",
   "Ali Husain Mohammed Saeed Abdul Alaliwat",
-  "Ali hussain murad ghareeb",
+  // "Ali hussain murad ghareeb",
   "Ali Jaafar Alasfoor",
   "Ali Saleh Mahdi Saleh Ali Abdulla",
   "Bayan Abdulla Ali Markhoos",
@@ -83,11 +83,51 @@
   "Rawan Salah J. Mohamed Haji",
   "Rayyan Jameel A. Rashed",
   "Ruqaya Sayed Adel S. Alsammak",
-  "Salman Ghazi A. Mahmood",
+  // "Salman Ghazi A. Mahmood",
   "Sayed Mohsen Kadhem Abdulla Ahmed Abdullah",
-  "Walaa Ali Hasan Abdulhusain Abdulrahim",
-  "Zainab Abduljalil M. Moosa",
+  // "Walaa Ali Hasan Abdulhusain Abdulrahim",
+  // "Zainab Abduljalil M. Moosa",
   "Zainab Ali Salman Abdullah Ahmed",
+  "Fatema Hameed H. Ahmed"
+]
+
+      let remainingStudents = [...students]
+      let groupNumber = 1
+      const groupsList = document.getElementById('groups')
+      const createGroupButton = document.getElementById('create-group')
+      const groupSizeInput = document.getElementById('group-size')
+
+      createGroupButton.addEventListener('click', function () {
+        const groupSize = parseInt(groupSizeInput.value, 10)
+
+        if (remainingStudents.length >= groupSize) {
+          const group = []
+          for (let i = 0; i < groupSize; i++) {
+            const randomIndex = Math.floor(
+              Math.random() * remainingStudents.length
+            )
+            group.push(remainingStudents.splice(randomIndex, 1)[0])
+          }
+          const li = document.createElement('li')
+          li.textContent = `Group ${groupNumber++}: ${group.join(', ')}`
+          groupsList.appendChild(li)
+        } else if (remainingStudents.length > 0) {
+          // Handle remaining students if fewer than group size
+          const li = document.createElement('li')
+          li.textContent = `Group ${groupNumber++} (less than ${groupSize}): ${remainingStudents.join(
+            ', '
+          )}`
+          groupsList.appendChild(li)
+          remainingStudents = []
+        }
+
+        if (remainingStudents.length === 0) {
+          createGroupButton.disabled = true
+        }
+      })
+    </script>
+  </body>
+</html>
 ]
 
       let first, filteredStudents
